@@ -1,5 +1,5 @@
 # onechain explorer
-![explorer](https://github.com/lukepark/onechain/blob/master/images/explorer.png)
+![explorer](https://github.com/lukepark327/onechain/blob/master/images/explorer.png)
 
 A **`onechain explorer`** is the front-end used to visualize the state of the blockchain. This blockchain explorer allows users to see the latest blocks and details about a particular block. onechain already has multiple functions with HTTP (RESTful API) endpoints. So the web page calls those endpoints and visualizes the results.
 
