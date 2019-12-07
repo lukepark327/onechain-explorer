@@ -5,6 +5,11 @@ A **`onechain explorer`** is the front-end used to visualize the state of the bl
 
 The full UI code is located in `./explorer/`. Vue.js and Vuetify are used.
 
+# Docker Quick Start
+```bash
+docker run -it -p 8080:8080 lukepark327/onechain-explorer
+```
+
 # How to Start
 ```bash
 cd explorer
