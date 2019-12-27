@@ -33,9 +33,9 @@
                 solo
                 flat
                 hide-details
-                v-model="blockNumber"
-                @keyup.enter="reloadBlockPage(blockNumber)"
-                @click:append="reloadBlockPage(blockNumber)"
+                v-model=userInputBlock
+                @keyup.enter="reloadBlockPage()"
+                @click:append="reloadBlockPage()"
               >
               </v-text-field>
             </v-col>
@@ -49,7 +49,7 @@
           <v-card-title>
             <v-btn
               text
-              @click="reloadBlockPage(block.header.index)"
+              @click="reloadWithInputBlock(block.header.index)"
             >
               Block #{{block.header.index}}
             </v-btn>
@@ -95,6 +95,7 @@
 export default {
   data: function () {
     return {
+      userInputBlock: "",
       block: {},
       goDark: this.$vuetify.theme.dark
     }
@@ -116,9 +117,17 @@ export default {
         alert(error);
       });
     },
-    reloadBlockPage: function (n) {
-      this.$router.push({ name: 'block', params: {number: n} });
-      this.block = this.getBlock(this.$route.params.number);
+    reloadWithInputBlock: function (n) {
+      this.userInputBlock = n.toString();
+      this.reloadBlockPage();
+    },
+    reloadBlockPage: function () {
+      if (this.userInputBlock != "") {
+        const n = Number(this.userInputBlock);
+        this.$router.push({ name: 'block', params: {number: n} });
+        this.block = this.getBlock(this.$route.params.number);
+      }
+      this.userInputBlock = "";
     },
     setTheme: function () {
       if (this.goDark == true) {

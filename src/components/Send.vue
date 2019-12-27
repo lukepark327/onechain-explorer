@@ -33,9 +33,9 @@
                 solo
                 flat
                 hide-details
-                v-model="text"
-                @keyup.enter="inputText(text)"
-                @click:append="inputText(text)"
+                v-model=userInputText
+                @keyup.enter="inputText()"
+                @click:append="inputText()"
               >
               </v-text-field>
             </v-col>
@@ -87,6 +87,7 @@
 export default {
   data: function () {
     return {
+      userInputText: "",
       texts: [],
       loader: null,
       loading: false,
@@ -97,8 +98,9 @@ export default {
     loader () {},
   },
   methods: {
-    inputText: function (text) {
-      this.texts.push(text);
+    inputText: function () {
+      this.texts.push(this.userInputText);
+      this.userInputText = "";
     },
     removeTexts: function () {
       this.texts = [];

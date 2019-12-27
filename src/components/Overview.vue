@@ -33,9 +33,9 @@
                 solo
                 flat
                 hide-details
-                v-model="blockNumber"
-                @keyup.enter="gotoBlockPage(blockNumber)"
-                @click:append="gotoBlockPage(blockNumber)"
+                v-model=userInputBlock
+                @keyup.enter="gotoBlockPage()"
+                @click:append="gotoBlockPage()"
               >
               </v-text-field>
             </v-col>
@@ -56,7 +56,7 @@
           <v-card-title>
             <v-btn
               text
-              @click="gotoBlockPage(block.header.index)"
+              @click="gotoWithInputBlock(block.header.index)"
             >
               Block #{{block.header.index}}
             </v-btn>
@@ -88,6 +88,7 @@
 export default {
   data: function () {
     return {
+      userInputBlock: "",
       blocks: [],
       switch1: false,
       inter1: undefined,
@@ -130,8 +131,18 @@ export default {
         alert(error);
       });
     },
-    gotoBlockPage: function (n) {
-      this.$router.push({ name: 'block', params: {number: n} });
+    gotoWithInputBlock: function (n) {
+      this.userInputBlock = n.toString();
+      this.gotoBlockPage();
+    },
+    gotoBlockPage: function () {
+      if (this.userInputBlock != "") {
+        const n = Number(this.userInputBlock);
+        if (n <= this.blocks[0].header.index) {
+          this.$router.push({ name: 'block', params: {number: n} });
+        }
+      }
+      this.userInputBlock = "";
     },
     setTheme: function () {
       if (this.goDark == true) {
